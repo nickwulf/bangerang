@@ -18,10 +18,10 @@
 inline void SWAP(char *buff,int n)
 {
 #ifdef X86_CPU
-	return;
+   return;
 #endif
 #ifdef WIN32
-	return;
+   return;
 #endif
 for(int i=0;i<n/2;i++)
   {
@@ -32,7 +32,7 @@ for(int i=0;i<n/2;i++)
 class CBmp
 {
 public:
-	unsigned char *m_pDibBuffer;
+   unsigned char *m_pDibBuffer;
   unsigned char  type[2];
   unsigned int size;
   unsigned short int reserv1,reserv2;
@@ -54,7 +54,7 @@ public:
  public:
    CBmp(char *filename)
      {
-		 m_pDibBuffer=NULL;
+       m_pDibBuffer=NULL;
        strcpy(fileName,filename);
      }
    int getWidth()
@@ -76,7 +76,7 @@ public:
        FILE *fp;
        fp = fopen(fileName,"rb");
        if(fp==NULL)
-	 return false ;
+    return false ;
 #define READ_INT(a) fread(&a,1,4,fp); SWAP((char*)&a,4);
 #define READ_SHORT(a) fread(&a,1,2,fp);SWAP((char*)&a,2);
        fread(type,1,2,fp);
@@ -96,40 +96,40 @@ public:
        READ_INT(ncolours);
        READ_INT(importantcolours);
        // width++;
-	int nWidth=1,nHeight=1;
-	while(nWidth<=width)nWidth=nWidth<<1;
-	while(nHeight<=height)nHeight=nHeight<<1;
-	 if(nWidth>nHeight)nHeight=nWidth;
-	 else nWidth=nHeight;
-	 nWidth=1024;
-	 nHeight=1024;
-	 unsigned char *readbuff=NULL;
+   int nWidth=1,nHeight=1;
+   while(nWidth<=width)nWidth=nWidth<<1;
+   while(nHeight<=height)nHeight=nHeight<<1;
+    if(nWidth>nHeight)nHeight=nWidth;
+    else nWidth=nHeight;
+    nWidth=1024;
+    nHeight=1024;
+    unsigned char *readbuff=NULL;
 
-	m_pDibBuffer=new unsigned char[nWidth*nHeight*3];
-	readbuff = new unsigned char [(width+1)*height*3];
+   m_pDibBuffer=new unsigned char[nWidth*nHeight*3];
+   readbuff = new unsigned char [(width+1)*height*3];
        int totalbytes=fread(readbuff,(width+1)*3,height,fp);
 
      for(int i=nHeight-1;i>=0;i--)
-	 for(int j=nWidth-1;j>=0;j--)
-	
-	   {
-	     int m,n;
-	     m=height*i/nHeight;
-	     n=width*j/nWidth;
-	     unsigned char *p1,*p2,*p3;
-	     p1 = m_pDibBuffer+(i*nWidth+j)*3;
-		 p2 = readbuff+(m)*width*3+(n)*3;
-		 p1[0]=p2[2];		//red
-		 p1[1]=p2[1];		//green
-		 p1[2]=p2[0];		//blue
-	   }
-	   delete readbuff;
+    for(int j=nWidth-1;j>=0;j--)
+   
+      {
+        int m,n;
+        m=height*i/nHeight;
+        n=width*j/nWidth;
+        unsigned char *p1,*p2,*p3;
+        p1 = m_pDibBuffer+(i*nWidth+j)*3;
+       p2 = readbuff+(m)*width*3+(n)*3;
+       p1[0]=p2[2];      //red
+       p1[1]=p2[1];      //green
+       p1[2]=p2[0];      //blue
+      }
+      delete readbuff;
        width = nWidth;
        height = nHeight;
 #undef READ_INT
 #undef READ_SHORT 
 
-	   return true;
+      return true;
      }
 };
 
@@ -140,79 +140,79 @@ public:
 #define M_PI 3.14159265
 #endif
 
-#define GLM_NONE     (0)		/* render with only vertices */
-#define GLM_FLAT     (1 << 0)		/* render with facet normals */
-#define GLM_SMOOTH   (1 << 1)		/* render with vertex normals */
-#define GLM_TEXTURE  (1 << 2)		/* render with texture coords */
-#define GLM_COLOR    (1 << 3)		/* render with colors */
-#define GLM_MATERIAL (1 << 4)		/* render with materials */
+#define GLM_NONE     (0)      /* render with only vertices */
+#define GLM_FLAT     (1 << 0)      /* render with facet normals */
+#define GLM_SMOOTH   (1 << 1)      /* render with vertex normals */
+#define GLM_TEXTURE  (1 << 2)      /* render with texture coords */
+#define GLM_COLOR    (1 << 3)      /* render with colors */
+#define GLM_MATERIAL (1 << 4)      /* render with materials */
 
 
 /* GLMmaterial: Structure that defines a material in a model. 
  */
 typedef struct _GLMmaterial
 {
-	_GLMmaterial()
-	{
-		m_nTexture=0xffffffff;
-	}
-  char* name;				/* name of material */
-  GLfloat diffuse[4];			/* diffuse component */
-  GLfloat ambient[4];			/* ambient component */
-  GLfloat specular[4];			/* specular component */
-  GLfloat emmissive[4];			/* emmissive component */
-  GLfloat shininess;			/* specular exponent */
+   _GLMmaterial()
+   {
+      m_nTexture=0xffffffff;
+   }
+  char* name;            /* name of material */
+  GLfloat diffuse[4];         /* diffuse component */
+  GLfloat ambient[4];         /* ambient component */
+  GLfloat specular[4];         /* specular component */
+  GLfloat emmissive[4];         /* emmissive component */
+  GLfloat shininess;         /* specular exponent */
   GLuint m_nTexture;
 } GLMmaterial;
 
 /* GLMtriangle: Structure that defines a triangle in a model.
  */
 typedef struct _GLMtriangle {
-  GLuint vindices[3];			/* array of triangle vertex indices */
-  GLuint nindices[3];			/* array of triangle normal indices */
-  GLuint tindices[3];			/* array of triangle texcoord indices*/
-  GLuint findex;			/* index of triangle facet normal */
+  GLuint vindices[3];         /* array of triangle vertex indices */
+  GLuint nindices[3];         /* array of triangle normal indices */
+  GLuint tindices[3];         /* array of triangle texcoord indices*/
+  GLuint findex;         /* index of triangle facet normal */
 } GLMtriangle;
 
 /* GLMgroup: Structure that defines a group in a model.
  */
 typedef struct _GLMgroup {
-  char*             name;		/* name of this group */
-  GLuint            numtriangles;	/* number of triangles in this group */
-  GLuint*           triangles;		/* array of triangle indices */
+  char*             name;      /* name of this group */
+  GLuint            numtriangles;   /* number of triangles in this group */
+  GLuint*           triangles;      /* array of triangle indices */
   GLuint            material;           /* index to material for group */
-  struct _GLMgroup* next;		/* pointer to next group in model */
+  struct _GLMgroup* next;      /* pointer to next group in model */
 } GLMgroup;
 
 /* GLMmodel: Structure that defines a model.
  */
 typedef struct _GLMmodel {
-  char*    pathname;			/* path to this model */
-  char*    mtllibname;			/* name of the material library */
+  char*    pathname;         /* path to this model */
+  char*    mtllibname;         /* name of the material library */
 
-  GLuint   numvertices;			/* number of vertices in model */
-  GLfloat* vertices;			/* array of vertices  */
-  GLfloat* colors;			/* array of colors  */
+  GLuint   numvertices;         /* number of vertices in model */
+  GLfloat* vertices;         /* array of vertices  */
+  GLfloat* colors;         /* array of colors  */
   bool hasColor;
-  GLuint   numnormals;			/* number of normals in model */
-  GLfloat* normals;			/* array of normals */
+  GLuint   numnormals;         /* number of normals in model */
+  GLfloat* normals;         /* array of normals */
 
-  GLuint   numtexcoords;		/* number of texcoords in model */
-  GLfloat* texcoords;			/* array of texture coordinates */
+  GLuint   numtexcoords;      /* number of texcoords in model */
+  GLfloat* texcoords;         /* array of texture coordinates */
 
-  GLuint   numfacetnorms;		/* number of facetnorms in model */
-  GLfloat* facetnorms;			/* array of facetnorms */
+  GLuint   numfacetnorms;      /* number of facetnorms in model */
+  GLfloat* facetnorms;         /* array of facetnorms */
 
-  GLuint       numtriangles;		/* number of triangles in model */
-  GLMtriangle* triangles;		/* array of triangles */
+  GLuint       numtriangles;      /* number of triangles in model */
+  GLMtriangle* triangles;      /* array of triangles */
 
-  GLuint       nummaterials;		/* number of materials in model */
-  GLMmaterial* materials;		/* array of materials */
+  GLuint       nummaterials;      /* number of materials in model */
+  GLMmaterial* materials;      /* array of materials */
 
-  GLuint       numgroups;		/* number of groups in model */
-  GLMgroup*    groups;			/* linked list of groups */
+  GLuint       numgroups;      /* number of groups in model */
+  GLMgroup*    groups;         /* linked list of groups */
 
-  GLfloat position[3];			/* position of the model */
+  GLfloat position[3];         /* position of the model */
 
 } GLMmodel;
 

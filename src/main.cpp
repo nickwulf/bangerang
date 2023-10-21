@@ -38,7 +38,9 @@ bool camMove = false;
 int clockThen=clock();  // used to determine how long a second is
 int frameCount=0;  // used to determine how many frames have been in the last second
 int frameRateTarget = 60;
-int frameRateTargetMs = (int) round(1000.0 / 60);
+float frameRateTargetMs = 1.0 * CLOCKS_PER_SEC / frameRateTarget;
+float frameRateCredit = 0;
+int frameRateClock = clock();
 int frameRateCalc=0;
 
 // Car variables
@@ -142,8 +144,7 @@ int main(int argc, char **argv) {
 	glutMainLoop();
 }
 
-// This function checks the state of openGL and prints 
-// an error if an error has occurred
+// This function checks the state of openGL and prints an error if an error has occurred
 void CheckGLError()
 {
   	GLenum error;
@@ -775,8 +776,15 @@ void Idle() {
 void Timer(int t) {
 	// Update display
 	glutPostRedisplay();
+	
 	// Reset timer
-	glutTimerFunc(frameRateTargetMs, Timer, 0);
+	int clockNew = clock();
+	frameRateCredit += (clockNew - frameRateClock) * 1000.0 / CLOCKS_PER_SEC;
+	frameRateCredit -= frameRateTargetMs;
+	frameRateClock = clockNew;
+	int delayMs = (int) round(frameRateTarget - frameRateCredit);
+	delayMs = min(int (10*frameRateTargetMs), max(0, delayMs));
+	glutTimerFunc(delayMs, Timer, 0);
 }
 
 // keyboard handler

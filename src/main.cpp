@@ -1,20 +1,21 @@
-#include <stdlib.h>
-#include "glm.h"
-#include "GL\glut.h"
-#include <stdarg.h>
 #include <iostream>
+#include "glm.h"
+#include "GL/glut.h"
+#include <stdlib.h>
+#include <stdarg.h>
 #include <memory.h>
 #include <time.h>
 #include <fstream>
 #include <sstream>
 #include <cmath>
-using namespace std;
 
-#include ".\car.h"
-#include ".\ground.h"
-#include ".\wall.h"
-#include ".\post.h"
-#include ".\text.h"
+#include "Car.h"
+#include "Ground.h"
+#include "Wall.h"
+#include "Post.h"
+#include "Text.h"
+
+using namespace std;
 
 // Definitions
 #define DEG_TO_RAD 0.0174532925

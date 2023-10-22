@@ -1,12 +1,12 @@
-#include ".\car.h"
-#include ".\ground.h"
-#include ".\wall.h"
-#include ".\post.h"
-#include ".\text.h"
+#include "Car.h"
+#include "Ground.h"
+#include "Wall.h"
+#include "Post.h"
+#include "Text.h"
 
 #include <stdlib.h>
 #include "glm.h"
-#include "GL\glut.h"
+#include "GL/glut.h"
 #include <stdarg.h>
 #include <iostream>
 #include <memory.h>

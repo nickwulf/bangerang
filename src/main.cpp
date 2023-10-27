@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
    glutInitWindowSize(imageWidth, imageHeight);
    glutInitDisplayString("rgb double");
    glutInitWindowPosition(0, 0);
-   glutCreateWindow("Project #1");
+   glutCreateWindow("Bangerang");
 
    //SETUP GLUT CALLBACKS
    cout << "Setting up callbacks... ";
